@@ -1,3 +1,4 @@
 .rubocop-http---relaxed-ruby-style-rubocop-yml
 Gemfile.lock
 /db/*.json
+.env
