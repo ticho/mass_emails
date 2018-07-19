@@ -76,10 +76,10 @@ Updates the JSON to `{name: "city_name", email: "city_email", handle: "@handle"}
 
 ### TownhallsMailer: sends a mail to every cityhall to tell them about the formation
 ```ruby
-TwitterFollow.new
+TownhallMailer.new(json_file)
 ```
-Initialize an object
+Initialize an object with a hash `{name: "city_name", email: "city_email"}` from the json file 
 ```ruby
-TwitterFollow.send_email(json_file)
+TownhallMailer.send_email
 ```
-Send an email to every address in the hash `{name: "city_name", email: "city_email"}`
+Send an email to every address in the hash
