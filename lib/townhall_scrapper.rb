@@ -74,7 +74,8 @@ class TownhallScrapper
       a['class'] == 'lientxt'
     end
     town_list = []
-    page.sample(5).each do |a|
+    page.first(5).each do |a|
+    # page.sample(5).each do |a|
     # page.each do |a|
       begin
         email = get_the_email_of_a_townhal_from_its_webpage('http://annuaire-des-mairies.com' + '/' + a['href'][0..-1])
