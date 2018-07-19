@@ -3,9 +3,15 @@ require 'pry'
 
 def main
   puts "We are going to collect emails from 3 french departements: "
-  puts '- Finistere'
+  puts '- Ain'
   puts '- Loire'
   puts '- Aisne'
+  collect_emails_json
+  puts "Then we are sending emails to each townhall in these departements"
+  puts "to let them know about 'The Hacking Project'"
+  # send_mails
+  puts "Finally we are sending sending them tweets, they must know who we are !"
+  # follow_tweet
 end
 
 def collect_emails_json
@@ -20,7 +26,16 @@ def collect_emails_json
   end
 end
 
-collect_emails_json
-# loire = TownhallScrapper.new('http://annuaire-des-mairies.com/loire.html')
-      # .list_from_url.write_json_list("db/loire_emails_20.JSON")
-# binding.pry
+def send_mails
+  json_file = [
+    'ain_emails.json',
+    'aisne_emails.json',
+    'loire_emails.json'
+  ]
+  json_file.each do |filename|
+    follow = TwitterFollow.new(filename)
+    follow.follow
+  end
+end
+
+main

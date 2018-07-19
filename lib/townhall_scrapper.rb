@@ -71,7 +71,6 @@ class TownhallScrapper
       a['class'] == 'lientxt'
     end
     town_list = []
-    # binding.pry
     page.first(20).each do |a|
     # page.each do |a|
       begin
