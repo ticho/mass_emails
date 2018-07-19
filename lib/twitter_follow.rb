@@ -36,7 +36,7 @@ class TwitterFollow
   def update_json
     Dir.mkdir 'db' unless Dir.exist? 'db'
     json_list = @city_hash.to_json
-    f = open(@json_file, 'w')
+    f = File.open(@json_file, 'w')
     f.write(json_list)
     f.close
   end

@@ -8,7 +8,7 @@ require_relative 'townhall_scrapper'
 require 'dotenv/load'
 
 class TownhallMailer
-  def initialize(mailing_list = '', departement)
+  def initialize(mailing_list = '', departement = '')
     @mailing_list = if mailing_list == ''
                       "db/ain_emails.JSON"
                     else
@@ -17,7 +17,7 @@ class TownhallMailer
     @name_and_mail = TownhallScrapper.new(mailing_list, departement)
   end
 
-  def get_email
+  def g_email
     read_file = @name_and_mail.read_json_from_db(@mailing_list)
     emails = []
 
@@ -27,7 +27,7 @@ class TownhallMailer
     emails
   end
 
-  def get_name
+  def g_name
     read_file = @name_and_mail.read_json_from_db(@mailing_list)
     names = []
     read_file.each do |city|
@@ -37,9 +37,8 @@ class TownhallMailer
   end
 
   def send_email
-    n_commune = get_name
-    mail = get_email
-    # gmail = Gmail.connect("ninadaveza@gmail.com", "thpmailing")
+    n_commune = g_name
+    mail = g_email
     Gmail.connect(ENV['USERNAME'], ENV['PASSWORD']) do |gmail|
       mail.each_with_index do |email, i|
         gmail.deliver do

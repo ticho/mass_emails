@@ -27,13 +27,13 @@ class TownhallScrapper
   def write_json_list(filename = 'db/emails.JSON')
     Dir.mkdir 'db' unless Dir.exist? 'db'
     json_list = @list.to_json
-    f = open(filename, 'w')
+    f = File.open(filename, 'w')
     f.write(json_list)
     f.close
   end
 
   def read_json_from_db(filename = 'db/emails.JSON')
-    f = open(filename, 'r')
+    f = File.open(filename, 'r')
     list = ''
     while (line = f.gets)
       list += line
@@ -44,7 +44,7 @@ class TownhallScrapper
 
   def data_to_csv(data, filename = 'db/emails.csv')
     Dir.mkdir 'db' unless Dir.exist? 'db'
-    file = open(filename, 'w')
+    file = File.open(filename, 'w')
     file.write("\"name\",\"email\"\n")
     data.each do |line|
       file.write("\"#{line['name']}\",\"#{line['email']}\"\n")
@@ -57,13 +57,11 @@ class TownhallScrapper
   def get_the_email_of_a_townhal_from_its_webpage(url)
     page = Nokogiri::HTML(URI.open(url))
     page.css('td').each do |str|
-      begin
-        if str.text.chomp.match?(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)
-          return str.text
-        end
-      rescue StandardError => e
-        puts "Error with #{str.text}: #{e.message}"
+      if str.text.chomp.match?(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)
+        return str.text
       end
+    rescue StandardError => e
+      puts "Error with #{str.text}: #{e.message}"
     end
   end
 
