@@ -47,7 +47,7 @@ class TownhallScrapper
     file = open(filename, 'w')
     file.write("\"name\",\"email\"\n")
     data.each do |line|
-      file.write("\"#{line["name"]}\",\"#{line["email"]}\"\n")
+      file.write("\"#{line['name']}\",\"#{line['email']}\"\n")
     end
     file.close
   end
@@ -64,7 +64,6 @@ class TownhallScrapper
       rescue StandardError => e
         puts "Error with #{str.text}: #{e.message}"
       end
-      ''
     end
   end
 
@@ -75,14 +74,12 @@ class TownhallScrapper
     end
     town_list = []
     page.first(5).each do |a|
-    # page.sample(5).each do |a|
-    # page.each do |a|
-      begin
-        email = get_the_email_of_a_townhal_from_its_webpage('http://annuaire-des-mairies.com' + '/' + a['href'][0..-1])
-        town_list.push(name: a.text, email: email)
-      rescue StandardError => e
-        puts "Error with #{email}: #{e.message}"
-      end
+      # page.sample(5).each do |a|
+      # page.each do |a|
+      email = get_the_email_of_a_townhal_from_its_webpage('http://annuaire-des-mairies.com' + '/' + a['href'][0..-1])
+      town_list.push(name: a.text, email: email)
+    rescue StandardError => e
+      puts "Error with #{email}: #{e.message}"
     end
     town_list
   end

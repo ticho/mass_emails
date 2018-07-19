@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'open-uri'
 require 'json'
@@ -7,32 +9,31 @@ require 'dotenv/load'
 
 class TownhallMailer
   def initialize(mailing_list = '', departement)
-    if mailing_list == ''
-      @mailing_list = "db/ain_emails.JSON"
-    else
-      @mailing_list = mailing_list
-    end
+    @mailing_list = if mailing_list == ''
+                      "db/ain_emails.JSON"
+                    else
+                      mailing_list
+                    end
     @name_and_mail = TownhallScrapper.new(mailing_list, departement)
   end
 
   def get_email
     read_file = @name_and_mail.read_json_from_db(@mailing_list)
-    emails = Array.new()
+    emails = []
 
     read_file.each do |city|
       emails << city["email"]
     end
-    return emails
+    emails
   end
 
   def get_name
     read_file = @name_and_mail.read_json_from_db(@mailing_list)
-    names = Array.new()
+    names = []
     read_file.each do |city|
-
       names << city["name"]
     end
-    return names
+    names
   end
 
   def send_email

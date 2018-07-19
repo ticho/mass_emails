@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lib/townhall_scrapper'
 require_relative 'lib/townhall_mailer'
 require_relative 'lib/twitter_follow'

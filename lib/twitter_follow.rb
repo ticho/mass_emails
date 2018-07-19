@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'twitter'
 require "dotenv/load"
 require_relative 'townhall_scrapper'
@@ -10,11 +12,11 @@ class TwitterFollow
       config.access_token        = ENV["ACCESS_TOKEN"]
       config.access_token_secret = ENV["ACCESS_TOKEN_SECRET"]
     end
-    if json_file == ''
-      @json_file = "db/loire_emails.JSON"
-    else
-      @json_file = json_file
-    end
+    @json_file = if json_file == ''
+                   "db/loire_emails.JSON"
+                 else
+                   json_file
+                 end
     @city_hash = TownhallScrapper.new.read_json_from_db(@json_file)
   end
 
@@ -26,7 +28,7 @@ class TwitterFollow
         city["handle"] = "@" + handle[0].screen_name
         # puts "Followed #{city["handle"]}"
       rescue StandardError => e
-        puts "Error: can't find a twitter account for #{city["name"]}"
+        puts "Error: can't find a twitter account for #{city['name']}"
       end
     end
   end
@@ -38,5 +40,4 @@ class TwitterFollow
     f.write(json_list)
     f.close
   end
-
 end
