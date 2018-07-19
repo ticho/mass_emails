@@ -1,5 +1,5 @@
 require_relative 'lib/townhall_scrapper'
-require_relative 'lib/townhalls_mailer'
+require_relative 'lib/townhall_mailer'
 require_relative 'lib/twitter_follow'
 require 'pry'
 
@@ -8,12 +8,12 @@ def main
   puts '- Ain'
   puts '- Loire'
   puts '- Aisne'
-  # collect_emails_json
+  collect_emails_json
   puts "Then we are sending emails to each townhall in these departements"
   puts "to let them know about 'The Hacking Project'"
-  # send_mails
+  send_mails
   puts "Finally we are sending sending them tweets, they must know who we are !"
-  # follow_tweeter
+  follow_tweeter
 end
 
 def collect_emails_json
@@ -57,6 +57,3 @@ end
 
 
 main
-
-follow = TwitterFollow.new('db/ain_emails.json')
-follow.follow

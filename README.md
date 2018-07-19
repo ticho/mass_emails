@@ -74,7 +74,7 @@ TwitterFollow.update_json
 ```
 Updates the JSON to `{name: "city_name", email: "city_email", handle: "@handle"}`
 
-### TownhallMailer: sends a mail to every cityhall to tell them about the formation
+### TownhallsMailer: sends a mail to every cityhall to tell them about the formation
 ```ruby
 TwitterFollow.new
 ```
