@@ -6,17 +6,21 @@ require 'pry'
 require 'json'
 
 class TownhallScrapper
-  def initialize(url = '')
+  def initialize(url = '', departement = '')
     @url = if url == ''
              'http://annuaire-des-mairies.com/val-d-oise.html'
            else
              url
            end
     @list = []
+    @departement = departement
   end
 
   def list_from_url
     @list = get_all_the_urls_townhalls(@url)
+    @list.each do |city|
+      city["department"] = @departement
+    end
     self
   end
 
@@ -70,7 +74,7 @@ class TownhallScrapper
       a['class'] == 'lientxt'
     end
     town_list = []
-    page.first(10).each do |a|
+    page.sample(5).each do |a|
     # page.each do |a|
       begin
         email = get_the_email_of_a_townhal_from_its_webpage('http://annuaire-des-mairies.com' + '/' + a['href'][0..-1])
