@@ -1,5 +1,6 @@
 require_relative 'lib/townhall_scrapper'
 require_relative 'lib/townhalls_mailer'
+require_relative 'lib/twitter_follow'
 require 'pry'
 
 def main
@@ -10,7 +11,7 @@ def main
   # collect_emails_json
   puts "Then we are sending emails to each townhall in these departements"
   puts "to let them know about 'The Hacking Project'"
-  send_mails
+  # send_mails
   puts "Finally we are sending sending them tweets, they must know who we are !"
   # follow_tweeter
 end
@@ -28,14 +29,16 @@ def collect_emails_json
 end
 
 def follow_tweeter
-  json_file = [
-    'db/ain_emails.JSON',
-    'db/aisne_emails.JSON',
-    'db/loire_emails.JSON'
-  ]
-  json_file.each do |filename|
+  json_file = {
+    ain: 'db/ain_emails.JSON',
+    aisne: 'db/aisne_emails.JSON',
+    loire: 'db/loire_emails.JSON'
+  }
+  json_file.each do |department, filename|
+    puts "Following townhalls in #{department}"
     follow = TwitterFollow.new(filename)
     follow.follow
+    follow.update_json
   end
 end
 
@@ -54,3 +57,6 @@ end
 
 
 main
+
+follow = TwitterFollow.new('db/ain_emails.json')
+follow.follow

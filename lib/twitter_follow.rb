@@ -1,6 +1,6 @@
 require 'twitter'
 require "dotenv/load"
-require_relative 'lib/townhall_scrapper'
+require_relative 'townhall_scrapper'
 
 class TwitterFollow
   def initialize(json_file = '')
@@ -10,12 +10,13 @@ class TwitterFollow
       config.access_token        = ENV["ACCESS_TOKEN"]
       config.access_token_secret = ENV["ACCESS_TOKEN_SECRET"]
     end
-    @json_file = "db/loire_emails.JSON"
+    if json_file == ''
+      @json_file = "db/loire_emails.JSON"
+    else
+      @json_file = json_file
+    end
     @city_hash = TownhallScrapper.new.read_json_from_db(@json_file)
   end
-
-
-  #puts city_name_array
 
   def follow
     @city_hash.each do |city|
@@ -23,20 +24,19 @@ class TwitterFollow
       begin
         @client.follow!(handle[0])
         city["handle"] = "@" + handle[0].screen_name
-        puts "Followed #{city["handle"]}"
+        # puts "Followed #{city["handle"]}"
       rescue StandardError => e
-        puts "Error: #{e.message}"
+        puts "Error: can't find a twitter account for #{city["name"]}"
       end
     end
   end
+
+  def update_json
+    Dir.mkdir 'db' unless Dir.exist? 'db'
+    json_list = @city_hash.to_json
+    f = open(@json_file, 'w')
+    f.write(json_list)
+    f.close
+  end
+
 end
-
-#array = recuperer le nom dans le tableau db/Dep.json each do |variable|
-
-
-
-TwitterFollow.new().follow
-
-#city_hash =[[city_hash],[handle]
-#rajouter le follow_all_cities dans city_hash
-#nom : paris : mail paris twiter : twitter paris
