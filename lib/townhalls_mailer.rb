@@ -6,16 +6,16 @@ require_relative 'townhall_scrapper'
 
 class TownhallMailer
   def initialize(mailing_list = '')
-    if @mailing_list == ''
+    if mailing_list == ''
       @mailing_list = "ain_emails.JSON"
     else
-      @mailing_list
+      @mailing_list = mailing_list
     end
   end
 
-  def get_email(file)
+  def get_email
     name_and_mail = TownhallScrapper.new()
-    read_file = name_and_mail.read_json_from_db(file)
+    read_file = name_and_mail.read_json_from_db(@mailing_list)
     emails = Array.new()
 
     read_file.each do |city|
@@ -24,9 +24,9 @@ class TownhallMailer
     return emails
   end
 
-  def get_name(file)
+  def get_name
     name_and_mail = TownhallScrapper.new()
-    read_file = name_and_mail.read_json_from_db(file)
+    read_file = name_and_mail.read_json_from_db(@mailing_list)
     names = Array.new()
     read_file.each do |city|
 
@@ -35,9 +35,9 @@ class TownhallMailer
     return names
   end
 
-  def send_email(file = @mailing_list)
-    n_commune = get_name(file)
-    mail = get_email(file)
+  def send_email
+    n_commune = get_name
+    mail = get_email
     gmail = Gmail.connect("ninadaveza@gmail.com", "thpmailing")
     mail.each_with_index do |email, i|
       gmail.deliver do

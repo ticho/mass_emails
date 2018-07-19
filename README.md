@@ -69,9 +69,17 @@ Initialize the object with the JSON file and create a hash from it
 TwitterFollow.follow
 ```
 Finds the Twitter accounts of each city and follows them. Updates the JSON file with the Twitter handles
+```ruby
+TwitterFollow.update_json
+```
+Updates the JSON to `{name: "city_name", email: "city_email", handle: "@handle"}`
 
 ### TownhallMailer: sends a mail to every cityhall to tell them about the formation
 ```ruby
-TwitterFollow.new(json_filename)
+TwitterFollow.new
 ```
-Initialize an object and creates a hash `{name: "city_name", email: "city_email"}` for further use
+Initialize an object
+```ruby
+TwitterFollow.send_email(json_file)
+```
+Send an email to every address in the hash `{name: "city_name", email: "city_email"}`

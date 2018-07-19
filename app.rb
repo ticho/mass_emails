@@ -40,14 +40,15 @@ def follow_tweeter
 end
 
 def send_mails
-  json_file = [
-    'db/ain_emails.JSON',
-    'db/aisne_emails.JSON',
-    'db/loire_emails.JSON'
-  ]
-  json_file.each do |filename|
+  json_file = {
+    ain: 'db/ain_emails.JSON',
+    aisne: 'db/aisne_emails.JSON',
+    loire: 'db/loire_emails.JSON'
+  }
+  json_file.each do |departement, filename|
+    puts "Sending mails to every cityhall in #{departement.capitalize}"
     sending = TownhallMailer.new(filename)
-    sending.send_email(filename)
+    sending.send_email
   end
 end
 

@@ -64,7 +64,6 @@ class TownhallScrapper
     end
   end
 
-
   def get_all_the_urls_townhalls(url)
     page = Nokogiri::HTML(URI.open(url))
     page = page.css('a').select do |a|
@@ -75,7 +74,6 @@ class TownhallScrapper
     # page.each do |a|
       begin
         email = get_the_email_of_a_townhal_from_its_webpage('http://annuaire-des-mairies.com' + '/' + a['href'][0..-1])
-        # puts email
         town_list.push(name: a.text, email: email)
       rescue StandardError => e
         puts "Error with #{email}: #{e.message}"
