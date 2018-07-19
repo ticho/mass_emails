@@ -1,7 +1,8 @@
 # mass_emails
 
 This projects aims to inform every townhall that THP exists.
-Our team : Ani, Badr, Fadia, Kamus, Tibo
+
+### Our team : Ani, Badr, Fadia, Kamus, Tibo
 
 We chose to focus on these 3 french departements:
 - Ain
