@@ -21,6 +21,7 @@ class TownhallScrapper
   end
 
   def write_json_list(filename = 'db/emails.JSON')
+    Dir.mkdir 'db' unless Dir.exist? 'db'
     json_list = @list.to_json
     f = open(filename, 'w')
     f.write(json_list)
@@ -38,6 +39,7 @@ class TownhallScrapper
   end
 
   def data_to_csv(data, filename = 'db/emails.csv')
+    Dir.mkdir 'db' unless Dir.exist? 'db'
     file = open(filename, 'w')
     file.write("\"name\",\"email\"\n")
     data.each do |line|
