@@ -42,7 +42,7 @@ class TownhallMailer
     mail.each_with_index do |email, i|
       gmail.deliver do
         to email
-        subject "Having fun in Puerto Rico!"
+        subject "Presentation du Projet THP!"
         html_part do
           content_type 'text/html; charset=UTF-8'
           body "<p>Bonjour,</p> <p>Je m'appelle Ninad, je suis élève à The Hacking Project, une formation au code gratuite, sans locaux, sans sélection, sans restriction géographique.

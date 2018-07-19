@@ -29,9 +29,9 @@ end
 
 def follow_tweeter
   json_file = [
-    'db/ain_emails.json',
-    'db/aisne_emails.json',
-    'db/loire_emails.json'
+    'db/ain_emails.JSON',
+    'db/aisne_emails.JSON',
+    'db/loire_emails.JSON'
   ]
   json_file.each do |filename|
     follow = TwitterFollow.new(filename)
@@ -41,15 +41,13 @@ end
 
 def send_mails
   json_file = [
-    'db/ain_emails.json',
-    'db/aisne_emails.json',
-    'db/loire_emails.json'
+    'db/ain_emails.JSON',
+    'db/aisne_emails.JSON',
+    'db/loire_emails.JSON'
   ]
-  puts "ici"
   json_file.each do |filename|
     sending = TownhallMailer.new(filename)
-  puts "apres"
-    sending.send_email
+    sending.send_email(filename)
   end
 end
 
