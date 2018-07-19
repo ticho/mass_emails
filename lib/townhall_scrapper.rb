@@ -74,6 +74,7 @@ class TownhallScrapper
     end
     town_list = []
     page.first(5).each do |a|
+      # Swap out these lines to scrap more or less townhalls
       # page.sample(5).each do |a|
       # page.each do |a|
       email = get_the_email_of_a_townhal_from_its_webpage('http://annuaire-des-mairies.com' + '/' + a['href'][0..-1])
