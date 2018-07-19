@@ -26,7 +26,6 @@ class TwitterFollow
       begin
         @client.follow!(handle[0])
         city["handle"] = "@" + handle[0].screen_name
-        # puts "Followed #{city["handle"]}"
       rescue StandardError
         puts "Error: can't find a twitter account for #{city['name']}"
       end
